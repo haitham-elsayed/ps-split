@@ -53,21 +53,25 @@ button{cursor:pointer}
 .pc{background:var(--surf);border-radius:24px;padding:14px;margin-bottom:12px;border:1.5px solid var(--bc);box-shadow:0 0 14px var(--gc)}
 .row{display:flex;gap:10px;align-items:center}
 .num{flex:none;width:34px;height:34px;border-radius:50%;background:var(--surf2);display:grid;place-items:center;font-weight:900;color:var(--mut)}
-.nm{flex:1;min-width:0;background:none;border:0;border-bottom:2px solid var(--line);border-radius:0;font-size:21px;font-weight:700;padding:6px 2px;text-align:center}
+.nm{flex:1;min-width:0;height:48px;background:none;border:0;border-bottom:2px solid var(--line);border-radius:0;font-size:22px;font-weight:700;padding:0 2px;text-align:center}
 .nm:focus{border-color:var(--blue);outline:0}
 .per{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px;padding-top:12px;border-top:1px solid var(--line)}
-.chip{background:var(--surf2);border:1.5px solid var(--bc);border-radius:16px;padding:8px 14px;text-align:center;min-height:62px}
-.chip span{display:block;font-size:14px;color:var(--mut);font-weight:700}
-.chip b{font-size:22px;font-weight:900;font-feature-settings:"tnum"}
-.chip.empty b{color:var(--mut);font-weight:700;font-size:17px}
+.lab{font-size:14px;color:var(--mut);font-weight:700}
+.fl{display:flex;gap:6px;align-items:stretch}
+.chip{flex:1;min-width:0;height:48px;background:var(--surf2);border:1.5px solid var(--bc);border-radius:14px;padding:0 2px;text-align:center;white-space:nowrap;font-size:clamp(21px,6.6vw,25px);font-weight:900;font-feature-settings:"tnum"}
+.ck{flex:none;width:44px;height:48px;border-radius:14px;background:var(--surf2);border:1.5px solid var(--blue);color:var(--blue);display:flex;align-items:center;justify-content:center;padding:0}
+.ck svg{display:block;width:36px;height:36px}
+.ck:disabled{opacity:.25;border-color:var(--line);color:var(--mut);cursor:default}
+.chip.empty{color:var(--mut);font-weight:700;font-size:18px}
 .seg{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr 74px;gap:6px}
-.seg>div{display:grid;grid-template-columns:1fr 1fr;grid-column:1/3;background:var(--surf2);border-radius:16px;padding:4px;gap:4px}
-.seg button{border:0;background:none;border-radius:12px;padding:8px 6px;font-weight:700;color:var(--mut);font-size:16px}
+.seg>div{display:grid;grid-template-columns:1fr 1fr;grid-column:1/3;gap:8px}
+.seg>div button{height:48px;border:1.5px solid var(--line);background:var(--surf2);border-radius:14px;padding:0 6px;font-weight:700;color:var(--mut);font-size:18px}
 .seg svg{width:18px;height:18px;vertical-align:-4px}
-.seg button.on.s{background:var(--blue);color:var(--on)}.seg button.on.m{background:var(--pink);color:var(--on2)}
+.seg button.on.s{background:var(--blue);border-color:var(--blue);color:var(--on)}.seg button.on.m{background:var(--pink);border-color:var(--pink);color:var(--on2)}
+.seg>.x{min-height:48px}
 .x{background:none;border:0;color:var(--mut);border-radius:12px;font-weight:700;font-size:15px;min-height:44px}
 .x:hover:not(:disabled){color:var(--bad)}.x:disabled{opacity:.3;cursor:default}
-.add{width:100%;margin-top:10px;background:none;border:2px dashed var(--line);border-radius:16px;padding:10px;color:var(--mut);font-weight:700}
+.add{width:100%;height:48px;margin-top:10px;background:none;border:2px dashed var(--line);border-radius:14px;padding:0;color:var(--mut);font-weight:700;font-size:18px}
 .add:hover{border-color:var(--blue);color:var(--blue)}
 .go{display:block;width:100%;border:0;border-radius:999px;background:var(--blue);font-weight:900;font-size:20px;padding:13px;margin-top:14px;color:var(--on);box-shadow:0 5px 0 var(--blued),0 0 18px var(--gl);transition:transform .08s,box-shadow .08s}
 .go:active{transform:translateY(4px);box-shadow:0 1px 0 var(--blued),0 0 18px var(--gl)}
@@ -105,10 +109,14 @@ details{margin-top:14px;font-size:15px;text-align:start}summary{cursor:pointer;f
 @supports not (color:color-mix(in srgb,red,blue)){:root[data-th]{--bc:var(--line);--gs:transparent;--gm:transparent;--gc:transparent;--gl:transparent}}
 .rdb{display:block;margin:12px auto 0;background:var(--surf);border:1.5px solid var(--bc);border-radius:999px;padding:6px 18px;font-weight:700;font-size:15px;color:var(--mut)}
 .rdb[aria-pressed=true]{border-color:var(--blue);color:var(--blue)}
-.leave{grid-column:1/-1;background:var(--surf2);border:1.5px solid var(--pink);color:var(--pink);border-radius:999px;padding:8px;font-weight:800;font-size:16px}
 .hrow{display:flex;gap:6px;align-items:stretch;margin-bottom:8px}.hrow .hist{margin:0;flex:1}.hrow .x{width:44px;flex:none;background:var(--surf);border:1.5px solid var(--bc);border-radius:18px}
 .hist em{font-style:normal;color:var(--pink)}
 .bk{display:grid;grid-template-columns:1fr 1fr;gap:8px}.bk button{background:var(--surf);border:1.5px solid var(--bc);border-radius:16px;padding:12px;font-weight:700}
+#live{background:var(--surf);border:1.5px solid var(--bs);border-radius:22px;padding:12px 14px;margin:16px 0 0;box-shadow:0 0 12px var(--gs)}
+#live[hidden]{display:none}
+#live small{display:block;color:var(--mut);font-size:15px;font-weight:700}
+#live b{display:block;font-size:34px;font-weight:900;line-height:1.2;color:var(--blue);font-feature-settings:"tnum"}
+.lv{color:var(--mut);font-size:15px;font-weight:700;margin-top:6px;font-feature-settings:"tnum"}.lv:empty{display:none}
 #upd{position:fixed;inset-inline:16px;bottom:calc(14px + env(safe-area-inset-bottom,0px));max-width:488px;margin:auto;background:var(--sheet);border:1.5px solid var(--blue);border-radius:999px;padding:8px 8px 8px 18px;display:flex;justify-content:space-between;align-items:center;font-weight:700;z-index:8;box-shadow:0 0 16px var(--gl)}
 #upd[hidden]{display:none}#upd button{background:var(--blue);color:var(--on);border:0;border-radius:999px;padding:6px 18px;font-weight:800}
 </style>
@@ -120,13 +128,14 @@ details{margin-top:14px;font-size:15px;text-align:start}summary{cursor:pointer;f
   <div class="glyphs" aria-hidden="true"><i>△</i><i>○</i><i>✕</i><i>□</i></div>
   <h1>كل واحد عليه إيه</h1>
   <p class="sub">قسّم حساب البلايستيشن على حسب وقت كل واحد فعلاً.</p>
+  <div id="live" hidden><small>الإجمالي لحد دلوقتي</small><b id="lt"></b><small id="ln"></small></div>
 
   <h2>سعر الساعة بالجنيه</h2>
   <div class="rates"><label class="rt s"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c0-3.9 3.1-6 7-6s7 2.1 7 6"/></svg></i><span>سينجل</span><input id="sr" type="number" inputmode="decimal" min="0" step="any"></label><label class="rt m"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="9" cy="8" r="3"/><path d="M3 19c0-3.3 2.7-5 6-5s6 1.7 6 5"/><circle cx="17" cy="9" r="2.5"/><path d="M17 14c2.6 0 4.5 1.4 4.5 4.5"/></svg></i><span>مالتي</span><input id="mr" type="number" inputmode="decimal" min="0" step="any"></label></div>
   <button class="rdb" id="rdb" data-a="rd" aria-pressed="false"></button>
 
   <h2>اللاعبين وفتراتهم</h2>
-  <p class="hint">اكتب وقت خروج كل واحد يمشي. اللي نهايته فاضية بيتحسب لحد أحدث خروج مكتوب، ولو محدش مشي لحد دلوقتي. والحساب يفضل «مؤقت» لحد ما كل النهايات تتكتب.</p>
+  <p class="hint">دوس على أيقونة الساعة جنب الوقت عشان تكتب الوقت الحالي، أو دوس على الوقت نفسه عشان تختاره. اكتب وقت خروج كل واحد يمشي. اللي نهايته فاضية بيتحسب لحد أحدث خروج مكتوب، ولو محدش مشي لحد دلوقتي. والحساب يفضل «مؤقت» لحد ما كل النهايات تتكتب.</p>
   <div id="pl"></div>
   <button class="add" data-a="addp">+ إضافة لاعب</button>
   <button class="go" data-a="calc">احسب الحساب</button>
@@ -202,7 +211,7 @@ function prepare(ss){
   return{cp,list:ss.map(x=>{
     if(x.endTime)return x;
     const span=(((cpAbs-tm(x.startTime))%1440)+1440)%1440;
-    if(!span||span>720)throw Error(A.length?`${x.name}: بدايته ${disp(x.startTime)} بعد نقطة الحساب ${disp(cp)}. اكتب نهايته أو راجع الوقت.`:`${x.name}: بدايته ${disp(x.startTime)} لسه ما جاش (دلوقتي ${disp(nowT)}). راجع الوقت.`);
+    if(span>720)throw Error(A.length?`${x.name}: بدايته ${disp(x.startTime)} بعد نقطة الحساب ${disp(cp)}. اكتب نهايته أو راجع الوقت.`:`${x.name}: بدايته ${disp(x.startTime)} لسه ما جاش (دلوقتي ${disp(nowT)}). راجع الوقت.`);
     return{...x,endTime:cp,live:true}})};
 }
 function compute(){
@@ -223,13 +232,14 @@ function compute(){
 
 /* ---------- الواجهة ---------- */
 const disp=v=>{if(!v)return'';const[h,m]=v.split(':').map(Number);return `${h%12||12}:${String(m).padStart(2,'0')} ${h>=12?'م':'ص'}`};
-const chip=(p,q,f,lab,ph)=>`<button class="chip${q[f]?'':' empty'}" data-a="time" data-p="${p.id}" data-q="${q.id}" data-f="${f}"><span>${lab}</span><b>${q[f]?disp(q[f]):ph}</b></button>`;
-function drawForm(){drawForm0();if(S.res){S.res=null;drawOut()}persist()}
+const CKI='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6.5v5.5l3.5 2"/></svg>';
+const chip=(p,q,f,lab,ph)=>`<div class="fl"><button class="chip${q[f]?'':' empty'}" data-a="time" data-p="${p.id}" data-q="${q.id}" data-f="${f}" aria-label="${lab}">${q[f]?disp(q[f]):ph}</button><button class="ck" data-a="now" data-p="${p.id}" data-q="${q.id}" data-f="${f}" aria-label="اكتب الوقت الحالي في ${lab}"${q[f]?' disabled':''}>${CKI}</button></div>`;
+function drawForm(){drawForm0();if(S.res){S.res=null;drawOut()}persist();updateLive()}
 function drawForm0(){
   $('#sr').value=S.sr;$('#mr').value=S.mr;
   const rb=$('#rdb');rb.setAttribute('aria-pressed',S.rd);rb.textContent=S.rd?'التقريب لأقرب جنيه: شغّال':'التقريب لأقرب جنيه: مقفول';
-  $('#pl').innerHTML=S.players.map((p,i)=>`<section class="pc"><div class="row"><span class="num">${i+1}</span><input class="nm" data-f="name" data-p="${p.id}" value="${esc(p.name)}" placeholder="اسم اللاعب" aria-label="اسم اللاعب ${i+1}"><button class="x" data-a="delp" data-p="${p.id}" ${S.players.length<2?'disabled':''}>حذف</button></div>
-  ${p.p.map(q=>`<div class="per">${chip(p,q,'s','من','اختر الوقت')}${chip(p,q,'e','إلى','مستمر')}<div class="seg"><div role="group" aria-label="نوع اللعب"><button class="${q.t==='single'?'on s':''}" data-a="type" data-t="single" data-p="${p.id}" data-q="${q.id}">${I1} سينجل</button><button class="${q.t==='multi'?'on m':''}" data-a="type" data-t="multi" data-p="${p.id}" data-q="${q.id}">${I2} مالتي</button></div><button class="x" data-a="delq" data-p="${p.id}" data-q="${q.id}" ${p.p.length<2?'disabled':''}>حذف الفترة</button></div>${q.s&&!q.e?`<button class="leave" data-a="leave" data-p="${p.id}" data-q="${q.id}">خرج دلوقتي</button>`:''}</div>`).join('')}
+  $('#pl').innerHTML=S.players.map((p,i)=>`<section class="pc"><div class="row"><span class="num">${i+1}</span><input class="nm" data-f="name" data-p="${p.id}" value="${esc(p.name)}" placeholder="اسم اللاعب" aria-label="اسم اللاعب ${i+1}"><button class="x" data-a="delp" data-p="${p.id}" ${S.players.length<2?'disabled':''}>حذف</button></div><div class="lv" data-lv="${p.id}"></div>
+  ${p.p.map(q=>`<div class="per"><div class="lab">من</div><div class="lab">إلى</div>${chip(p,q,'s','من','اختر')}${chip(p,q,'e','إلى','مستمر')}<div class="seg"><div role="group" aria-label="نوع اللعب"><button class="${q.t==='single'?'on s':''}" data-a="type" data-t="single" data-p="${p.id}" data-q="${q.id}">${I1} سينجل</button><button class="${q.t==='multi'?'on m':''}" data-a="type" data-t="multi" data-p="${p.id}" data-q="${q.id}">${I2} مالتي</button></div><button class="x" data-a="delq" data-p="${p.id}" data-q="${q.id}" ${p.p.length<2?'disabled':''}>حذف الفترة</button></div></div>`).join('')}
   <button class="add" data-a="addq" data-p="${p.id}">+ فترة تانية لنفس اللاعب</button></section>`).join('');
 }
 /* ---------- عجلات اختيار الوقت ---------- */
@@ -272,7 +282,7 @@ function drawHist(){
   $('#hist').innerHTML=S.hist.map(h=>`<div class="hrow"><button class="hist" data-a="load" data-h="${h.id}"><span>${esc(h.players.map(p=>p.name).join('، '))}<small>${new Date(h.at).toLocaleString('ar-EG',{day:'numeric',month:'short',hour:'numeric',minute:'2-digit'})}${h.live?' · <em>مؤقت</em>':''}</small></span><b>${money(h.total)}</b></button><button class="x" data-a="delh" data-h="${h.id}" aria-label="حذف السجل">✕</button></div>`).join('');
 }
 const msg=t=>{$('#msg').innerHTML=t?`<div class="err" role="alert">⚠ ${esc(t)}</div>`:''};
-const dirty=()=>{if(S.res){S.res=null;drawOut()}msg('');persist()};
+const dirty=()=>{if(S.res){S.res=null;drawOut()}msg('');persist();updateLive()};
 const fresh=()=>{S.players=[newPlayer()];S.res=null;S.sid=uid();msg('');drawForm();drawOut();scrollTo({top:0,behavior:'smooth'})};
 
 document.addEventListener('input',e=>{
@@ -300,7 +310,7 @@ document.addEventListener('click',async e=>{
     const rec={id:S.sid,at:Date.now(),total:S.res.total,live:S.res.live,rd:S.rd,sr:S.sr,mr:S.mr,players:JSON.parse(JSON.stringify(S.players))};
     S.hist=[rec,...S.hist.filter(x=>x.id!==rec.id)].slice(0,30);store.set('ps_hist',S.hist);drawHist();flash(b,'اتحفظ ✓')}
   else if(a==='delh'){if(confirm('حذف الجلسة المحفوظة؟')){S.hist=S.hist.filter(x=>x.id!==b.dataset.h);store.set('ps_hist',S.hist);drawHist()}}
-  else if(a==='leave'){p.p.find(x=>x.id===b.dataset.q).e=hhmm(new Date());drawForm()}
+  else if(a==='now'){const q=p&&p.p.find(x=>x.id===b.dataset.q),f=b.dataset.f;if(q&&!q[f]){q[f]=hhmm(new Date());drawForm()}}
   else if(a==='rd'){S.rd=!S.rd;saveRates();drawForm()}
   else if(a==='exp')exportData(b);
   else if(a==='imp')$('#imf').click();
@@ -342,10 +352,31 @@ const tcm=document.getElementById('tc');
 function applyTheme(k){document.documentElement.dataset.th=k;const c=getComputedStyle(document.documentElement).getPropertyValue('--bg').trim();if(tcm&&c)tcm.content=c}
 try{matchMedia('(prefers-color-scheme:dark)').addEventListener('change',()=>applyTheme(document.documentElement.dataset.th))}catch{}
 if('serviceWorker' in navigator)navigator.serviceWorker.addEventListener('message',e=>{if(e.data==='upd')$('#upd').hidden=false});
+if('serviceWorker' in navigator)addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
+function updateLive(){
+  const L=$('#live');
+  document.querySelectorAll('[data-lv]').forEach(el=>el.textContent='');
+  if(!S.players.some(p=>p.p.some(q=>q.s))){L.hidden=true;return}
+  L.hidden=false;
+  let r=null,err='';
+  try{r=compute()}catch(e){err=e.message}
+  $('#lt').textContent=r?money(r.total):'—';
+  $('#ln').textContent=r?(r.live?'مؤقت · محسوب لحد '+disp(r.cp):'نهائي · كل النهايات مكتوبة'):err;
+  if(!r)return;
+  S.players.forEach(p=>{
+    const row=r.rows.find(x=>nk(x.name)===nk(p.name)),el=document.querySelector(`[data-lv="${p.id}"]`),open=p.p.find(q=>q.s&&!q.e);
+    if(!el||!row)return;
+    let t='';
+    if(open){const m=((tm(r.cp)-tm(open.s))%1440+1440)%1440;t=`قاعد من ${disp(open.s)} · ${m>=60?Math.floor(m/60)+'س ':''}${m%60}د · `}
+    el.textContent=t+'نصيبه لحد دلوقتي '+money(row.c);
+  });
+}
+setInterval(updateLive,20000);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)updateLive()});
+addEventListener('focus',updateLive);
 const markTh=()=>document.querySelectorAll('.sw').forEach(x=>x.classList.toggle('on',x.dataset.th===document.documentElement.dataset.th));
 drawForm();drawHist();markTh();applyTheme(document.documentElement.dataset.th||'cy');
 if(S._calc){try{S.res=compute();drawOut();persist()}catch{}}
-if('serviceWorker' in navigator)addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
 </script>
 </body>
 </html>
