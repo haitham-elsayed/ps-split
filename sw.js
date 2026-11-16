@@ -1,8 +1,9 @@
 // غيّر رقم النسخة لو عايز تفرض مسح الكاش القديم
-const V='ps-split-v2';
+const V='ps-split-v3';
 const SHELL=['./','index.html','manifest.webmanifest','icon-192.png','icon-512.png','icon-180.png'];
+const FONTS=["tajawal-arabic-400-normal.woff2", "tajawal-latin-400-normal.woff2", "tajawal-arabic-700-normal.woff2", "tajawal-latin-700-normal.woff2", "tajawal-arabic-800-normal.woff2", "tajawal-latin-800-normal.woff2", "tajawal-arabic-900-normal.woff2", "tajawal-latin-900-normal.woff2", "lalezar-arabic-400-normal.woff2", "lalezar-latin-400-normal.woff2"];
 const notify=()=>self.clients.matchAll({type:'window'}).then(l=>l.forEach(c=>c.postMessage('upd')));
-self.addEventListener('install',e=>{e.waitUntil(caches.open(V).then(c=>Promise.all(SHELL.map(u=>c.add(new Request(u,{cache:'reload'}))))).then(()=>self.skipWaiting()))});
+self.addEventListener('install',e=>{e.waitUntil(caches.open(V).then(c=>Promise.all([...SHELL.map(u=>c.add(new Request(u,{cache:'reload'}))),...FONTS.map(u=>c.add(u).catch(()=>{}))])).then(()=>self.skipWaiting()))});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(k=>Promise.all(k.filter(x=>x!==V).map(x=>caches.delete(x)))).then(()=>self.clients.claim()))});
 self.addEventListener('fetch',e=>{
   const r=e.request;if(r.method!=='GET')return;
@@ -22,9 +23,9 @@ self.addEventListener('fetch',e=>{
     e.respondWith(caches.match('index.html').then(hit=>hit||net.then(x=>x||Response.error())));
     return;
   }
-  if(u.origin===location.origin||u.hostname==='fonts.googleapis.com'||u.hostname==='fonts.gstatic.com'){
+  if(u.origin===location.origin){
     e.respondWith(caches.open(V).then(c=>c.match(r).then(hit=>{
-      const net=fetch(r,{cache:u.origin===location.origin?'no-cache':'default'}).then(res=>{if(res.ok||res.type==='opaque')c.put(r,res.clone());return res}).catch(()=>hit);
+      const net=fetch(r,{cache:'no-cache'}).then(res=>{if(res.ok||res.type==='opaque')c.put(r,res.clone());return res}).catch(()=>hit);
       return hit||net;
     })));
   }

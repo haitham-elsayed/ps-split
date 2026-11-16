@@ -7,12 +7,23 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="كل واحد عليه إيه">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icon-192.png">
 <link rel="apple-touch-icon" href="icon-180.png">
 <title>كل واحد عليه إيه</title>
-<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&family=Lalezar&display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:'Tajawal';font-style:normal;font-weight:400;font-display:swap;src:url('tajawal-arabic-400-normal.woff2') format('woff2');unicode-range:U+0600-06FF,U+0750-077F,U+0870-088E,U+0890-0891,U+0897-08E1,U+08E3-08FF,U+200C-200E,U+2010-2011,U+204F,U+2E41,U+FB50-FDFF,U+FE70-FE74,U+FE76-FEFC}
+@font-face{font-family:'Tajawal';font-style:normal;font-weight:400;font-display:swap;src:url('tajawal-latin-400-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Tajawal';font-style:normal;font-weight:700;font-display:swap;src:url('tajawal-arabic-700-normal.woff2') format('woff2');unicode-range:U+0600-06FF,U+0750-077F,U+0870-088E,U+0890-0891,U+0897-08E1,U+08E3-08FF,U+200C-200E,U+2010-2011,U+204F,U+2E41,U+FB50-FDFF,U+FE70-FE74,U+FE76-FEFC}
+@font-face{font-family:'Tajawal';font-style:normal;font-weight:700;font-display:swap;src:url('tajawal-latin-700-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Tajawal';font-style:normal;font-weight:800;font-display:swap;src:url('tajawal-arabic-800-normal.woff2') format('woff2');unicode-range:U+0600-06FF,U+0750-077F,U+0870-088E,U+0890-0891,U+0897-08E1,U+08E3-08FF,U+200C-200E,U+2010-2011,U+204F,U+2E41,U+FB50-FDFF,U+FE70-FE74,U+FE76-FEFC}
+@font-face{font-family:'Tajawal';font-style:normal;font-weight:800;font-display:swap;src:url('tajawal-latin-800-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Tajawal';font-style:normal;font-weight:900;font-display:swap;src:url('tajawal-arabic-900-normal.woff2') format('woff2');unicode-range:U+0600-06FF,U+0750-077F,U+0870-088E,U+0890-0891,U+0897-08E1,U+08E3-08FF,U+200C-200E,U+2010-2011,U+204F,U+2E41,U+FB50-FDFF,U+FE70-FE74,U+FE76-FEFC}
+@font-face{font-family:'Tajawal';font-style:normal;font-weight:900;font-display:swap;src:url('tajawal-latin-900-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Lalezar';font-style:normal;font-weight:400;font-display:swap;src:url('lalezar-arabic-400-normal.woff2') format('woff2');unicode-range:U+0600-06FF,U+0750-077F,U+0870-088E,U+0890-0891,U+0897-08E1,U+08E3-08FF,U+200C-200E,U+2010-2011,U+204F,U+2E41,U+FB50-FDFF,U+FE70-FE74,U+FE76-FEFC}
+@font-face{font-family:'Lalezar';font-style:normal;font-weight:400;font-display:swap;src:url('lalezar-latin-400-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+</style>
 <script>try{document.documentElement.dataset.th=JSON.parse(localStorage.getItem('ps_theme'))||'cy'}catch(e){document.documentElement.dataset.th='cy'}</script>
 <style>
 :root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bad:#ff8a80}
@@ -119,11 +130,16 @@ details{margin-top:14px;font-size:15px;text-align:start}summary{cursor:pointer;f
 .lv{color:var(--mut);font-size:15px;font-weight:700;margin-top:6px;font-feature-settings:"tnum"}.lv:empty{display:none}
 #upd{position:fixed;inset-inline:16px;bottom:calc(14px + env(safe-area-inset-bottom,0px));max-width:488px;margin:auto;background:var(--sheet);border:1.5px solid var(--blue);border-radius:999px;padding:8px 8px 8px 18px;display:flex;justify-content:space-between;align-items:center;font-weight:700;z-index:8;box-shadow:0 0 16px var(--gl)}
 #upd[hidden]{display:none}#upd button{background:var(--blue);color:var(--on);border:0;border-radius:999px;padding:6px 18px;font-weight:800}
+.thb,.rdb,.sw,#upd button{min-height:44px}
+#stw{background:var(--surf);border:1.5px solid var(--pink);border-radius:16px;padding:10px 14px;margin:8px 0;font-weight:700;font-size:15px}#stw[hidden]{display:none}
+.lnk{display:block;margin:2px auto 0;background:none;border:0;color:var(--blue);font-weight:700;font-size:16px;text-decoration:underline;min-height:44px;padding:0 12px}
+#kbt{display:block;margin:2px auto 8px;background:var(--surf2);border:1.5px solid var(--bc);border-radius:14px;height:48px;font-size:22px;font-weight:700;padding:0 12px;direction:ltr;color:var(--ink)}#kbt[hidden]{display:none}
 </style>
 </head>
 <body>
 <main>
   <div class="top"><button class="thb" data-a="thm" aria-expanded="false">الثيم</button></div>
+  <div id="stw" role="alert" hidden>⚠ التخزين مش شغّال في المتصفح ده، بياناتك مش هتتحفظ بعد ما تقفل التطبيق.</div>
   <div id="ths" hidden><button class="sw" data-a="th" data-th="cy"><i style="background:#22d3ee"></i><i style="background:#ff3da6"></i>سيان ومجنتا</button><button class="sw" data-a="th" data-th="pu"><i style="background:#c4ff3d"></i><i style="background:#ff5fb8"></i>بنفسجي وليموني</button><button class="sw" data-a="th" data-th="gr"><i style="background:#39ff88"></i><i style="background:#ffe14d"></i>أخضر وأصفر</button><button class="sw" data-a="th" data-th="tl"><i style="background:#0f9d8c"></i><i style="background:#d9a441"></i>فيروزي ورملي</button></div>
   <div class="glyphs" aria-hidden="true"><i>△</i><i>○</i><i>✕</i><i>□</i></div>
   <h1>كل واحد عليه إيه</h1>
@@ -131,7 +147,7 @@ details{margin-top:14px;font-size:15px;text-align:start}summary{cursor:pointer;f
   <div id="live" hidden><small>الإجمالي لحد دلوقتي</small><b id="lt"></b><small id="ln"></small></div>
 
   <h2>سعر الساعة بالجنيه</h2>
-  <div class="rates"><label class="rt s"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c0-3.9 3.1-6 7-6s7 2.1 7 6"/></svg></i><span>سينجل</span><input id="sr" type="number" inputmode="decimal" min="0" step="any"></label><label class="rt m"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="9" cy="8" r="3"/><path d="M3 19c0-3.3 2.7-5 6-5s6 1.7 6 5"/><circle cx="17" cy="9" r="2.5"/><path d="M17 14c2.6 0 4.5 1.4 4.5 4.5"/></svg></i><span>مالتي</span><input id="mr" type="number" inputmode="decimal" min="0" step="any"></label></div>
+  <div class="rates"><label class="rt s"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c0-3.9 3.1-6 7-6s7 2.1 7 6"/></svg></i><span>سينجل</span><input id="sr" type="text" inputmode="decimal" autocomplete="off"></label><label class="rt m"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="9" cy="8" r="3"/><path d="M3 19c0-3.3 2.7-5 6-5s6 1.7 6 5"/><circle cx="17" cy="9" r="2.5"/><path d="M17 14c2.6 0 4.5 1.4 4.5 4.5"/></svg></i><span>مالتي</span><input id="mr" type="text" inputmode="decimal" autocomplete="off"></label></div>
   <button class="rdb" id="rdb" data-a="rd" aria-pressed="false"></button>
 
   <h2>اللاعبين وفتراتهم</h2>
@@ -149,8 +165,8 @@ details{margin-top:14px;font-size:15px;text-align:start}summary{cursor:pointer;f
   <div class="bk"><button data-a="exp">تصدير</button><button data-a="imp">استيراد</button></div>
   <input type="file" id="imf" accept=".json,application/json" hidden>
 </main>
-<div id="upd" hidden><span>فيه نسخة جديدة</span><button data-a="reload">تحديث</button></div>
-<div class="ov" id="ov" hidden><div class="sheet" role="dialog" aria-modal="true" aria-labelledby="st"><div class="grab"></div><h3 id="st">الوقت</h3><div class="wheels"><div class="band"></div><div class="wheel" id="wh" tabindex="0" role="listbox" aria-label="الساعة"></div><div class="wheel" id="wm" tabindex="0" role="listbox" aria-label="الدقيقة"></div><div class="wheel" id="wa" tabindex="0" role="listbox" aria-label="صباحًا أو مساءً"></div></div><div class="sa"><button class="go" data-a="tdone">تم</button><button class="ghost" data-a="tclear">مسح</button><button class="ghost" data-a="tnow">الآن</button></div></div></div>
+<div id="upd" role="status" hidden><span>فيه نسخة جديدة</span><button data-a="reload">تحديث</button></div>
+<div class="ov" id="ov" hidden><div class="sheet" role="dialog" aria-modal="true" aria-labelledby="st"><div class="grab"></div><h3 id="st">الوقت</h3><div class="wheels"><div class="band"></div><div class="wheel" id="wh" tabindex="0" role="listbox" aria-label="الساعة"></div><div class="wheel" id="wm" tabindex="0" role="listbox" aria-label="الدقيقة"></div><div class="wheel" id="wa" tabindex="0" role="listbox" aria-label="صباحًا أو مساءً"></div></div><button class="lnk" id="kbb" data-a="kb" aria-expanded="false">اكتب الوقت بالكيبورد</button><input id="kbt" type="time" aria-label="الوقت" hidden><div class="sa"><button class="go" data-a="tdone">تم</button><button class="ghost" data-a="tclear">مسح</button><button class="ghost" data-a="tnow">الآن</button></div></div></div>
 <script>
 const $=s=>document.querySelector(s);
 const I1='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c0-3.9 3.1-6 7-6s7 2.1 7 6"/></svg>',I2='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="9" cy="8" r="3"/><path d="M3 19c0-3.3 2.7-5 6-5s6 1.7 6 5"/><circle cx="17" cy="9" r="2.5"/><path d="M17 14c2.6 0 4.5 1.4 4.5 4.5"/></svg>';
@@ -159,20 +175,25 @@ const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'
 const tm=t=>{const[h,m]=t.split(':').map(Number);return h*60+m};
 const fmt=m=>{m=((m%1440)+1440)%1440;return String(Math.floor(m/60)).padStart(2,'0')+':'+String(m%60).padStart(2,'0')};
 const money=c=>(c/100).toFixed(2)+' جنيه';
-const store={get(k){try{return JSON.parse(localStorage.getItem(k))}catch{return null}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch{}}};
+const stErr=f=>{const e=document.getElementById('stw');if(e)e.hidden=!f};
+const sm=()=>{try{return matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'}catch{return'auto'}};
+const nz=v=>String(v).replace(/[٠-٩]/g,d=>'٠١٢٣٤٥٦٧٨٩'.indexOf(d)).replace(/[۰-۹]/g,d=>'۰۱۲۳۴۵۶۷۸۹'.indexOf(d)).replace(/[٫،,]/g,'.').replace(/[^\d.]/g,'').replace(/\./g,(m,i,t)=>t.indexOf('.')===i?'.':'');
+const store={get(k){try{return JSON.parse(localStorage.getItem(k))}catch{return null}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v));stErr(false)}catch{stErr(true)}}};
 const newPer=()=>({id:uid(),s:'',e:'',t:'single'});
 const newPlayer=()=>({id:uid(),name:'',p:[newPer()]});
-let S={sr:60,mr:70,rd:false,sid:uid(),players:[newPlayer()],res:null,hist:[]};
+let S={sr:60,mr:70,rd:false,sid:uid(),players:[newPlayer()],res:null,hist:[],fz:null};
 const num=v=>Number.isFinite(v)&&v>=0;
-const okPer=q=>q&&typeof q.id==='string'&&typeof q.s==='string'&&typeof q.e==='string'&&(q.t==='single'||q.t==='multi');
-const okPl=p=>p&&typeof p.id==='string'&&typeof p.name==='string'&&Array.isArray(p.p)&&p.p.length>0&&p.p.every(okPer);
-const okHist=h=>h&&typeof h.id==='string'&&typeof h.at==='number'&&num(h.total)&&num(h.sr)&&num(h.mr)&&Array.isArray(h.players)&&h.players.every(okPl);
-const persist=()=>store.set('ps_draft',{players:S.players,sid:S.sid,calc:!!S.res});
+const okId=s=>typeof s==='string'&&/^[A-Za-z0-9_-]{1,40}$/.test(s);
+const okT=s=>typeof s==='string'&&(s===''||/^([01]\d|2[0-3]):[0-5]\d$/.test(s));
+const okPer=q=>q&&okId(q.id)&&okT(q.s)&&okT(q.e)&&(q.t==='single'||q.t==='multi');
+const okPl=p=>p&&okId(p.id)&&typeof p.name==='string'&&Array.isArray(p.p)&&p.p.length>0&&p.p.every(okPer);
+const okHist=h=>h&&okId(h.id)&&typeof h.at==='number'&&num(h.total)&&num(h.sr)&&num(h.mr)&&Array.isArray(h.players)&&h.players.every(okPl)&&(h.cp===undefined||okT(h.cp));
+const persist=()=>store.set('ps_draft',{players:S.players,sid:S.sid,calc:!!S.res,fz:S.fz});
 const saveRates=()=>store.set('ps_rates',{sr:S.sr,mr:S.mr,rd:S.rd});
 const hhmm=d=>String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');
 {const r=store.get('ps_rates');if(r){if(num(r.sr))S.sr=r.sr;if(num(r.mr))S.mr=r.mr;S.rd=!!r.rd}
 const h=store.get('ps_hist');S.hist=Array.isArray(h)?h.filter(okHist):[];
-const d=store.get('ps_draft');if(d&&Array.isArray(d.players)&&d.players.length&&d.players.every(okPl)){S.players=d.players;if(typeof d.sid==='string')S.sid=d.sid;S._calc=!!d.calc}}
+const d=store.get('ps_draft');if(d&&Array.isArray(d.players)&&d.players.length&&d.players.every(okPl)){S.players=d.players;if(okId(d.sid))S.sid=d.sid;S._calc=!!d.calc;if(typeof d.fz==='string'&&d.fz&&okT(d.fz))S._fz=d.fz}}
 
 /* ---------- محرك الحساب (نفس منطق calculator.ts) ---------- */
 const nk=n=>n.trim().toLowerCase().replace(/[\u064B-\u065F\u0640]/g,'').replace(/[أإآٱ]/g,'ا').replace(/ة/g,'ه').replace(/ى/g,'ي').replace(/\s+/g,' ');
@@ -205,13 +226,15 @@ function conflicts(ss){
 }
 /* النهايات الفاضية = نقطة الحساب (أحدث خروج اتكتب بعد توحيد منتصف الليل، أو الوقت الحالي) */
 function prepare(ss){
-  const now=new Date(),nowT=fmt(now.getHours()*60+now.getMinutes());
+  const now=new Date(),nowT=S.fz||fmt(now.getHours()*60+now.getMinutes());
   const ent=ss.filter(x=>x.endTime),A=ent.length?adj(ent):[];
   const cpAbs=A.length?Math.max(...A.map(x=>x.e)):tm(nowT),cp=fmt(cpAbs);
   return{cp,list:ss.map(x=>{
     if(x.endTime)return x;
     const span=(((cpAbs-tm(x.startTime))%1440)+1440)%1440;
-    if(span>720)throw Error(A.length?`${x.name}: بدايته ${disp(x.startTime)} بعد نقطة الحساب ${disp(cp)}. اكتب نهايته أو راجع الوقت.`:`${x.name}: بدايته ${disp(x.startTime)} لسه ما جاش (دلوقتي ${disp(nowT)}). راجع الوقت.`);
+    if(span>720){
+      if(A.length)throw Error(`${x.name}: بدايته ${disp(x.startTime)} بعد نقطة الحساب ${disp(cp)}. اكتب نهايته أو راجع الوقت.`);
+      throw Error(1440-span<=240?`${x.name}: بدايته ${disp(x.startTime)} لسه ما جاش (دلوقتي ${disp(nowT)}). راجع الوقت.`:`${x.name}: بدايته ${disp(x.startTime)} بعيدة عن الوقت الحالي ${disp(nowT)} (يا في المستقبل يا من أكتر من 12 ساعة). راجع الوقت وصباحًا/مساءً.`)}
     return{...x,endTime:cp,live:true}})};
 }
 function compute(){
@@ -233,8 +256,8 @@ function compute(){
 /* ---------- الواجهة ---------- */
 const disp=v=>{if(!v)return'';const[h,m]=v.split(':').map(Number);return `${h%12||12}:${String(m).padStart(2,'0')} ${h>=12?'م':'ص'}`};
 const CKI='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6.5v5.5l3.5 2"/></svg>';
-const chip=(p,q,f,lab,ph)=>`<div class="fl"><button class="chip${q[f]?'':' empty'}" data-a="time" data-p="${p.id}" data-q="${q.id}" data-f="${f}" aria-label="${lab}">${q[f]?disp(q[f]):ph}</button><button class="ck" data-a="now" data-p="${p.id}" data-q="${q.id}" data-f="${f}" aria-label="اكتب الوقت الحالي في ${lab}"${q[f]?' disabled':''}>${CKI}</button></div>`;
-function drawForm(){drawForm0();if(S.res){S.res=null;drawOut()}persist();updateLive()}
+const chip=(p,q,f,lab,ph)=>`<div class="fl"><button class="chip${q[f]?'':' empty'}" data-a="time" data-p="${p.id}" data-q="${q.id}" data-f="${f}" aria-label="${lab}: ${q[f]?disp(q[f]):ph}">${q[f]?disp(q[f]):ph}</button><button class="ck" data-a="now" data-p="${p.id}" data-q="${q.id}" data-f="${f}" aria-label="اكتب الوقت الحالي في ${lab}"${q[f]?' disabled':''}>${CKI}</button></div>`;
+function drawForm(){S.fz=null;drawForm0();if(S.res){S.res=null;drawOut()}persist();updateLive()}
 function drawForm0(){
   $('#sr').value=S.sr;$('#mr').value=S.mr;
   const rb=$('#rdb');rb.setAttribute('aria-pressed',S.rd);rb.textContent=S.rd?'التقريب لأقرب جنيه: شغّال':'التقريب لأقرب جنيه: مقفول';
@@ -244,10 +267,10 @@ function drawForm0(){
 }
 /* ---------- عجلات اختيار الوقت ---------- */
 const P={ml:Array.from({length:12},(_,i)=>i*5)};
-const mk=(id,items)=>{$(id).innerHTML=items.map(t=>`<div>${t}</div>`).join('')};
+const mk=(id,items)=>{$(id).innerHTML=items.map(t=>`<div role="option">${t}</div>`).join('')};
 mk('#wh',Array.from({length:12},(_,i)=>i+1));mk('#wm',Array.from({length:12},(_,i)=>String(i*5).padStart(2,'0')));mk('#wa',['ص','م']);
 const W=[['#wh','h',v=>v+1],['#wm','m',v=>P.ml[v]],['#wa','ap',v=>v]];
-function mark(){W.forEach(([id])=>{const el=$(id),i=Math.round(el.scrollTop/44);[...el.children].forEach((c,k)=>c.classList.toggle('sel',k===i))})}
+function mark(){W.forEach(([id])=>{const el=$(id),i=Math.round(el.scrollTop/44);[...el.children].forEach((c,k)=>{c.classList.toggle('sel',k===i);c.setAttribute('aria-selected',k===i)})})}
 W.forEach(([id,key,fn])=>$(id).addEventListener('scroll',()=>{const el=$(id),i=Math.max(0,Math.min(el.children.length-1,Math.round(el.scrollTop/44)));P[key]=fn(i);mark()},{passive:true}));
 function setWheels(){$('#wh').scrollTop=(P.h-1)*44;$('#wm').scrollTop=P.ml.indexOf(P.m)*44;$('#wa').scrollTop=P.ap*44;mark()}
 function openTime(p,q,f,at){
@@ -256,11 +279,12 @@ function openTime(p,q,f,at){
   P.ml=[...new Set([...Array.from({length:12},(_,i)=>i*5),mm])].sort((x,y)=>x-y);mk('#wm',P.ml.map(x=>String(x).padStart(2,'0')));
   Object.assign(P,{p,q,f,h:h%12||12,m:mm,ap:h>=12?1:0,op:document.activeElement});
   $('#st').textContent=f==='s'?'وقت البداية':'وقت النهاية (سيبه فاضي لو لسه بيلعب)';
-  $('#ov').hidden=false;setWheels();$('#wh').focus({preventScroll:true});
+  $('#ov').hidden=false;$('#kbt').hidden=true;$('#kbb').setAttribute('aria-expanded','false');setWheels();$('#wh').focus({preventScroll:true});
 }
+$('#kbt').addEventListener('change',e=>{const v=e.target.value;if(!/^\d\d:\d\d$/.test(v))return;const[h,m]=v.split(':').map(Number);if(!P.ml.includes(m)){P.ml=[...P.ml,m].sort((x,y)=>x-y);mk('#wm',P.ml.map(x=>String(x).padStart(2,'0')))}Object.assign(P,{h:h%12||12,m,ap:h>=12?1:0});setWheels()});
 const closeTime=()=>{$('#ov').hidden=true;try{P.op&&P.op.focus()}catch{}};
 ['#wh','#wm','#wa'].forEach(id=>$(id).addEventListener('keydown',e=>{if(e.key==='ArrowDown'||e.key==='ArrowUp'){e.preventDefault();$(id).scrollBy({top:e.key==='ArrowDown'?44:-44})}}));
-$('#ov').addEventListener('keydown',e=>{if(e.key!=='Tab')return;const l=[...$('#ov').querySelectorAll('button,[tabindex="0"]')],i=l.indexOf(document.activeElement);e.preventDefault();l[(i+(e.shiftKey?-1:1)+l.length)%l.length].focus()});
+$('#ov').addEventListener('keydown',e=>{if(e.key!=='Tab')return;const l=[...$('#ov').querySelectorAll('button,[tabindex="0"],input:not([hidden])')],i=l.indexOf(document.activeElement);e.preventDefault();l[(i+(e.shiftKey?-1:1)+l.length)%l.length].focus()});
 function setTime(val){const q=S.players.find(x=>x.id===P.p).p.find(x=>x.id===P.q);q[P.f]=val;closeTime();drawForm()}
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeTime()});
 $('#ov').addEventListener('click',e=>{if(e.target.id==='ov')closeTime()});
@@ -269,7 +293,7 @@ function shareText(r){
 }
 function drawOut(){
   const r=S.res;if(!r){$('#out').innerHTML='';return}
-  $('#out').innerHTML=`<div class="slip"><h3>الحساب</h3><div class="meta">${r.live?'<span class="live">مؤقت — لحد '+disp(r.cp)+'</span>':'نهائي'}</div>
+  $('#out').innerHTML=`<div class="slip"><h3>الحساب</h3><div class="meta">${r.live?'<span class="live">مؤقت — لحد '+disp(r.cp)+(S.fz?' (وقت الحفظ)':'')+'</span>':'نهائي'}</div>
   ${r.rows.map(x=>`<div class="line"><div>${esc(x.name)}<small>${x.h.toFixed(2)} ساعة${x.sc&&x.mc?` · سينجل ${money(x.sc)} · مالتي ${money(x.mc)}`:x.mc?' · مالتي':' · سينجل'}</small></div><b>${money(x.c)}</b></div>`).join('')}
   ${r.rd&&r.total!==r.raw?`<div class="line"><div>فرق التقريب<small>الإجمالي قبل التقريب ${money(r.raw)}</small></div><b>${r.total>r.raw?'+':''}${money(r.total-r.raw)}</b></div>`:''}
   <div class="tot"><span>الإجمالي</span><span>${money(r.total)}</span></div>
@@ -282,12 +306,12 @@ function drawHist(){
   $('#hist').innerHTML=S.hist.map(h=>`<div class="hrow"><button class="hist" data-a="load" data-h="${h.id}"><span>${esc(h.players.map(p=>p.name).join('، '))}<small>${new Date(h.at).toLocaleString('ar-EG',{day:'numeric',month:'short',hour:'numeric',minute:'2-digit'})}${h.live?' · <em>مؤقت</em>':''}</small></span><b>${money(h.total)}</b></button><button class="x" data-a="delh" data-h="${h.id}" aria-label="حذف السجل">✕</button></div>`).join('');
 }
 const msg=t=>{$('#msg').innerHTML=t?`<div class="err" role="alert">⚠ ${esc(t)}</div>`:''};
-const dirty=()=>{if(S.res){S.res=null;drawOut()}msg('');persist();updateLive()};
-const fresh=()=>{S.players=[newPlayer()];S.res=null;S.sid=uid();msg('');drawForm();drawOut();scrollTo({top:0,behavior:'smooth'})};
+const dirty=()=>{S.fz=null;if(S.res){S.res=null;drawOut()}msg('');persist();updateLive()};
+const fresh=()=>{S.players=[newPlayer()];S.res=null;S.sid=uid();msg('');drawForm();drawOut();scrollTo({top:0,behavior:sm()})};
 
 document.addEventListener('input',e=>{
   const t=e.target;
-  if(t.id==='sr'||t.id==='mr'){S[t.id]=Math.max(0,Number(t.value)||0);saveRates();dirty();return}
+  if(t.id==='sr'||t.id==='mr'){const n=nz(t.value);if(n!==t.value)t.value=n;S[t.id]=Math.max(0,Number(n)||0);saveRates();dirty();return}
   const f=t.dataset.f;if(!f)return;
   const p=S.players.find(x=>x.id===t.dataset.p);if(!p)return;
   if(f==='name')p.name=t.value;else{const q=p.p.find(x=>x.id===t.dataset.q);if(q)q[f]=t.value}
@@ -301,13 +325,13 @@ document.addEventListener('click',async e=>{
   else if(a==='addq'){p.p.push(newPer());drawForm()}
   else if(a==='delq'){p.p=p.p.filter(x=>x.id!==b.dataset.q);drawForm()}
   else if(a==='calc'){
-    try{msg('');S.res=compute();drawOut();persist();$('#out').scrollIntoView({behavior:'smooth'})}
+    try{msg('');S.res=compute();drawOut();persist();$('#out').scrollIntoView({behavior:sm()})}
     catch(err){S.res=null;drawOut();msg(err.message)}}
   else if(a==='copy'){try{await navigator.clipboard.writeText(shareText(S.res));b.textContent='تم ✓'}catch{b.textContent='مش متاح'}setTimeout(()=>b.textContent='نسخ',1500)}
   else if(a==='share'){
     try{if(navigator.share)await navigator.share({title:'كل واحد عليه إيه',text:shareText(S.res)});else{await navigator.clipboard.writeText(shareText(S.res));b.textContent='اتنسخ ✓';setTimeout(()=>b.textContent='مشاركة',1500)}}catch{}}
   else if(a==='save'){
-    const rec={id:S.sid,at:Date.now(),total:S.res.total,live:S.res.live,rd:S.rd,sr:S.sr,mr:S.mr,players:JSON.parse(JSON.stringify(S.players))};
+    const rec={id:S.sid,at:Date.now(),total:S.res.total,live:S.res.live,cp:S.res.cp,rd:S.rd,sr:S.sr,mr:S.mr,players:JSON.parse(JSON.stringify(S.players))};
     S.hist=[rec,...S.hist.filter(x=>x.id!==rec.id)].slice(0,30);store.set('ps_hist',S.hist);drawHist();flash(b,'اتحفظ ✓')}
   else if(a==='delh'){if(confirm('حذف الجلسة المحفوظة؟')){S.hist=S.hist.filter(x=>x.id!==b.dataset.h);store.set('ps_hist',S.hist);drawHist()}}
   else if(a==='now'){const q=p&&p.p.find(x=>x.id===b.dataset.q),f=b.dataset.f;if(q&&!q[f]){q[f]=hhmm(new Date());drawForm()}}
@@ -317,13 +341,14 @@ document.addEventListener('click',async e=>{
   else if(a==='reload')location.reload();
   else if(a==='time')openTime(b.dataset.p,b.dataset.q,b.dataset.f);
   else if(a==='tdone')setTime(`${String((P.h%12)+(P.ap?12:0)).padStart(2,'0')}:${String(P.m).padStart(2,'0')}`);
+  else if(a==='kb'){const i=$('#kbt');i.hidden=!i.hidden;b.setAttribute('aria-expanded',!i.hidden);if(!i.hidden){i.value=`${String((P.h%12)+(P.ap?12:0)).padStart(2,'0')}:${String(P.m).padStart(2,'0')}`;i.focus()}}
   else if(a==='tnow')setTime(hhmm(new Date()))
   else if(a==='thm'){const s=$('#ths');s.hidden=!s.hidden;b.setAttribute('aria-expanded',!s.hidden)}
   else if(a==='th'){applyTheme(b.dataset.th);store.set('ps_theme',b.dataset.th);markTh()}
   else if(a==='tclear')setTime('');
   else if(a==='type'){const q=p.p.find(x=>x.id===b.dataset.q);q.t=b.dataset.t;drawForm()}
   else if(a==='new')fresh();
-  else if(a==='load'){const h=S.hist.find(x=>x.id===b.dataset.h);if(!h)return;S.sr=h.sr;S.mr=h.mr;S.rd=!!h.rd;S.sid=h.id;saveRates();S.players=JSON.parse(JSON.stringify(h.players));msg('');drawForm();try{S.res=compute();drawOut();persist()}catch{S.res=null;drawOut()}scrollTo({top:0,behavior:'smooth'})}
+  else if(a==='load'){const h=S.hist.find(x=>x.id===b.dataset.h);if(!h)return;S.sr=h.sr;S.mr=h.mr;S.rd=!!h.rd;S.sid=h.id;saveRates();S.players=JSON.parse(JSON.stringify(h.players));msg('');drawForm();S.fz=(h.live&&h.cp)?h.cp:null;try{S.res=compute();drawOut();persist();updateLive()}catch{S.res=null;drawOut()}scrollTo({top:0,behavior:sm()})}
 });
 const flash=(b,x)=>{const o=b.textContent;b.textContent=x;setTimeout(()=>b.textContent=o,1500)};
 async function exportData(b){
@@ -344,7 +369,7 @@ $('#imf').addEventListener('change',async e=>{
     S.hist=[...S.hist,...o.hist.filter(okHist).filter(x=>!ids.has(x.id))].sort((a,b)=>b.at-a.at).slice(0,30);
     if(o.rates&&num(o.rates.sr)&&num(o.rates.mr)){S.sr=o.rates.sr;S.mr=o.rates.mr;S.rd=!!o.rates.rd;saveRates()}
     const blank=S.players.length===1&&!S.players[0].name&&S.players[0].p.length===1&&!S.players[0].p[0].s;
-    if(blank&&o.draft&&Array.isArray(o.draft.players)&&o.draft.players.length&&o.draft.players.every(okPl)){S.players=o.draft.players;if(typeof o.draft.sid==='string')S.sid=o.draft.sid}
+    if(blank&&o.draft&&Array.isArray(o.draft.players)&&o.draft.players.length&&o.draft.players.every(okPl)){S.players=o.draft.players;if(okId(o.draft.sid))S.sid=o.draft.sid}
     store.set('ps_hist',S.hist);drawForm();drawHist();msg('');flash($('[data-a=imp]'),'تم الاستيراد ✓')
   }catch{msg('الملف ده مش نسخة احتياطية صالحة.')}
 });
@@ -376,7 +401,7 @@ document.addEventListener('visibilitychange',()=>{if(!document.hidden)updateLive
 addEventListener('focus',updateLive);
 const markTh=()=>document.querySelectorAll('.sw').forEach(x=>x.classList.toggle('on',x.dataset.th===document.documentElement.dataset.th));
 drawForm();drawHist();markTh();applyTheme(document.documentElement.dataset.th||'cy');
-if(S._calc){try{S.res=compute();drawOut();persist()}catch{}}
+if(S._calc){S.fz=S._fz||null;try{S.res=compute();drawOut();persist();updateLive()}catch{}}
 </script>
 </body>
 </html>
