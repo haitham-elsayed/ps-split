@@ -197,13 +197,18 @@ const d=store.get('ps_draft');if(d&&Array.isArray(d.players)&&d.players.length&&
 
 /* ---------- محرك الحساب (نفس منطق calculator.ts) ---------- */
 const nk=n=>n.trim().toLowerCase().replace(/[\u064B-\u065F\u0640]/g,'').replace(/[أإآٱ]/g,'ا').replace(/ة/g,'ه').replace(/ى/g,'ي').replace(/\s+/g,' ');
-function adj(ss){
+/* open = فيه حد لسه قاعد من المساء: أي بداية صباحية بعد منتصف الليل تتحسب من تاني يوم */
+function adj(ss,open=ss.some(x=>x.live&&tm(x.startTime)>=720)){
   const d=ss.map(x=>({...x,k:nk(x.name),s:tm(x.startTime),e:tm(x.endTime)}));
   let mx=0;d.forEach(x=>{if(x.e<x.s)mx=Math.max(mx,x.e+1440)});
-  return d.map(x=>{
-    if(x.e<x.s)return{...x,e:x.e+1440};
-    if(mx>0&&x.s<720&&x.s<mx%1440)return{...x,s:x.s+1440,e:x.e+1440};
-    return x});
+  d.forEach(x=>{if(x.e<x.s)x.e+=1440});
+  /* بداية الصبح اللي بتيجي بعد نهاية فترة عابرة لمنتصف الليل (أو لسه شغال من المساء) تتزحزح يوم، وبتمدّ نقطة النهاية للي بعدها */
+  for(let go=mx>0;go;){
+    go=false;
+    d.forEach(x=>{
+      if(!x.sh&&x.e<1440&&x.s<720&&(open||x.s<=mx%1440)){x.sh=1;x.s+=1440;x.e+=1440;mx=Math.max(mx,x.e);go=true}});
+  }
+  return d;
 }
 function periods(ss,sr,mr){
   const a=adj(ss),pts=[...new Set(a.flatMap(x=>[x.s,x.e]))].sort((x,y)=>x-y),out=[];
@@ -227,7 +232,7 @@ function conflicts(ss){
 /* النهايات الفاضية = نقطة الحساب (أحدث خروج اتكتب بعد توحيد منتصف الليل، أو الوقت الحالي) */
 function prepare(ss){
   const now=new Date(),nowT=S.fz||fmt(now.getHours()*60+now.getMinutes());
-  const ent=ss.filter(x=>x.endTime),A=ent.length?adj(ent):[];
+  const ent=ss.filter(x=>x.endTime),open=ss.some(x=>!x.endTime&&tm(x.startTime)>=720),A=ent.length?adj(ent,open):[];
   const cpAbs=A.length?Math.max(...A.map(x=>x.e)):tm(nowT),cp=fmt(cpAbs);
   return{cp,list:ss.map(x=>{
     if(x.endTime)return x;
@@ -288,6 +293,11 @@ $('#ov').addEventListener('keydown',e=>{if(e.key!=='Tab')return;const l=[...$('#
 function setTime(val){const q=S.players.find(x=>x.id===P.p).p.find(x=>x.id===P.q);q[P.f]=val;closeTime();drawForm()}
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeTime()});
 $('#ov').addEventListener('click',e=>{if(e.target.id==='ov')closeTime()});
+/* الحساب المخزّن بيبقى قديم لما الوقت يمشي: نعيد الحساب قبل النسخ/المشاركة/الحفظ */
+function curRes(){
+  if(!S.res)return null;
+  try{const r=compute();if(r.total!==S.res.total||r.cp!==S.res.cp||r.hours!==S.res.hours){S.res=r;drawOut();persist()}}catch{}
+  return S.res}
 function shareText(r){
   return `كل واحد عليه إيه 🎮\n`+r.rows.map(x=>`${x.name}: ${money(x.c)}`).join('\n')+`\nالإجمالي: ${money(r.total)}\nمدة الجلسة: ${r.hours.toFixed(2)} ساعة`+(r.live?`\n(حساب مؤقت لحد ${disp(r.cp)})`:'')+(r.rd?'\n(بعد التقريب لأقرب جنيه)':'');
 }
@@ -327,11 +337,11 @@ document.addEventListener('click',async e=>{
   else if(a==='calc'){
     try{msg('');S.res=compute();drawOut();persist();$('#out').scrollIntoView({behavior:sm()})}
     catch(err){S.res=null;drawOut();msg(err.message)}}
-  else if(a==='copy'){try{await navigator.clipboard.writeText(shareText(S.res));b.textContent='تم ✓'}catch{b.textContent='مش متاح'}setTimeout(()=>b.textContent='نسخ',1500)}
+  else if(a==='copy'){try{await navigator.clipboard.writeText(shareText(curRes()));b.textContent='تم ✓'}catch{b.textContent='مش متاح'}setTimeout(()=>b.textContent='نسخ',1500)}
   else if(a==='share'){
-    try{if(navigator.share)await navigator.share({title:'كل واحد عليه إيه',text:shareText(S.res)});else{await navigator.clipboard.writeText(shareText(S.res));b.textContent='اتنسخ ✓';setTimeout(()=>b.textContent='مشاركة',1500)}}catch{}}
+    try{if(navigator.share)await navigator.share({title:'كل واحد عليه إيه',text:shareText(curRes())});else{await navigator.clipboard.writeText(shareText(curRes()));b.textContent='اتنسخ ✓';setTimeout(()=>b.textContent='مشاركة',1500)}}catch{}}
   else if(a==='save'){
-    const rec={id:S.sid,at:Date.now(),total:S.res.total,live:S.res.live,cp:S.res.cp,rd:S.rd,sr:S.sr,mr:S.mr,players:JSON.parse(JSON.stringify(S.players))};
+    const R=curRes(),rec={id:S.sid,at:Date.now(),total:R.total,live:R.live,cp:R.cp,rd:S.rd,sr:S.sr,mr:S.mr,players:JSON.parse(JSON.stringify(S.players))};
     S.hist=[rec,...S.hist.filter(x=>x.id!==rec.id)].slice(0,30);store.set('ps_hist',S.hist);drawHist();flash(b,'اتحفظ ✓')}
   else if(a==='delh'){if(confirm('حذف الجلسة المحفوظة؟')){S.hist=S.hist.filter(x=>x.id!==b.dataset.h);store.set('ps_hist',S.hist);drawHist()}}
   else if(a==='now'){const q=p&&p.p.find(x=>x.id===b.dataset.q),f=b.dataset.f;if(q&&!q[f]){q[f]=hhmm(new Date());drawForm()}}
