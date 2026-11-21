@@ -9,7 +9,7 @@ const ok=(n,c,d)=>{if(c){pass++;console.log('PASS',n)}else{fail++;console.log('F
 
 function load(h,m,opt={}){
   const els={},lis={};
-  const mk=()=>({textContent:'',hidden:false,innerHTML:'',value:'',dataset:{},style:{},classList:{toggle(){},add(){},remove(){}},children:[],scrollTop:0,setAttribute(){},focus(){},scrollIntoView(){},scrollBy(){},click(){},addEventListener(t,f){(this.L=this.L||{})[t]=f}});
+  const mk=()=>({textContent:'',hidden:false,innerHTML:'',value:'',dataset:{},style:{},classList:{toggle(){},add(){},remove(){}},children:[],scrollTop:0,setAttribute(){},focus(){this.focused=true},scrollIntoView(){},scrollBy(){},click(){},addEventListener(t,f){(this.L=this.L||{})[t]=f}});
   const get=s=>els[s]||(els[s]=mk());
   const lvEl=id=>els['lv'+id]||(els['lv'+id]=mk());
   const doc={
@@ -23,7 +23,7 @@ function load(h,m,opt={}){
   class FD extends Date{constructor(...a){if(a.length)super(...a);else super(2026,9,10,h,m,0)}static now(){return new Date(2026,9,10,h,m,0).getTime()}}
   const fn=new Function('document','localStorage','Date','navigator','setInterval','addEventListener','matchMedia','getComputedStyle','scrollTo','confirm','location','File',
     code+'\n;return {S:()=>S,P,updateLive,compute,nz,okId,okPl,okHist};');
-  const api=fn(doc,ls,FD,{},()=>{},()=>{},()=>({matches:false,addEventListener(){}}),()=>({getPropertyValue:()=>'#000'}),()=>{},()=>true,{reload(){}},class{});
+  const api=fn(doc,ls,FD,{},()=>{},()=>{},()=>({matches:false,addEventListener(){}}),()=>({getPropertyValue:()=>'#000'}),()=>{},()=>opt.confirm===undefined?true:opt.confirm,{reload(){}},class{});
   return {api,els,get,store,
     click:(a,extra)=>{const b={dataset:Object.assign({a},extra||{}),setAttribute(){}};lis.click.forEach(f=>f({target:{closest:()=>b}}))},
     input:t=>lis.input.forEach(f=>f({target:t}))};
@@ -68,7 +68,7 @@ const txt=(T,k)=>T.els[k]?T.els[k].textContent:undefined;
   const r3=T3.api.compute();
   ok('منتصف الليل: 75 و105',r3.rows.map(x=>x.c).join()==='7500,10500',r3.rows.map(x=>x.c));
   S3.players=[{id:'a',name:'أحمد',p:[{id:'a1',s:'10:00',e:'11:00',t:'single'}]},{id:'b',name:'احمد',p:[{id:'b1',s:'11:00',e:'12:00',t:'single'}]}];
-  ok('توحيد الأسماء (أحمد/احمد)',T3.api.compute().rows.length===1);
+  ok('أحمد واحمد بطاقتين منفصلتين',T3.api.compute().rows.length===2);
   S3.players=[{id:'a',name:'أ',p:[{id:'a1',s:'10:00',e:'11:00',t:'single'},{id:'a2',s:'10:30',e:'11:30',t:'single'}]}];m='';try{T3.api.compute()}catch(e){m=e.message}
   ok('فترتين متداخلتين لنفس اللاعب = خطأ',m.includes('متداخلين'),m);
   S3.sr=0;S3.players=[{id:'a',name:'أ',p:[{id:'a1',s:'10:00',e:'11:00',t:'single'}]}];m='';try{T3.api.compute()}catch(e){m=e.message}
@@ -142,5 +142,38 @@ const txt=(T,k)=>T.els[k]?T.els[k].textContent:undefined;
   S.fz='18:00';
   T.click('save');
   ok('الحفظ بعد ساعة بيخزّن 300 مش 240',S.hist[0]&&S.hist[0].total===30000&&S.res.total===30000,S.hist[0]&&S.hist[0].total);
+}
+// --- هوية اللاعبين + مسح الجلسة + استرجاع المسودة
+{
+  const T=load(12,0),S=T.api.S();
+  S.sr=60;
+  S.players=[{id:'a',name:'أحمد',p:[{id:'a1',s:'10:00',e:'11:00',t:'single'}]},
+    {id:'b',name:'أحمد',p:[{id:'b1',s:'10:00',e:'12:00',t:'single'}]}];
+  const r=T.api.compute();
+  ok('نفس الاسم: حصتين منفصلتين 30 و90',r.rows.map(x=>x.c).join()==='3000,9000');
+  ok('كل صف حساب مرتبط بهوية اللاعب',r.rows.map(x=>x.id).join()==='a,b');
+  T.click('calc');T.click('rd');
+  ok('نصيب البطاقة الأولى مش التانية',T.els.lva.textContent.includes('30.00')&&T.els.lvb.textContent.includes('90.00'));
+  T.click('calc');T.click('save');
+  const hist=JSON.stringify(S.hist),sid=S.sid;
+  T.click('new');
+  ok('المسح يعمل لاعب فاضي وفترة فاضية واحدة',S.players.length===1&&!S.players[0].name&&S.players[0].p.length===1&&!S.players[0].p[0].s&&!S.players[0].p[0].e);
+  ok('المسح يشيل الحساب والتجميد ويجدد هوية الجلسة',S.res===null&&S.fz===null&&S.sid!==sid);
+  ok('المسح يحافظ على الأسعار والسجل',S.sr===60&&JSON.stringify(S.hist)===hist);
+  const reopened=load(12,0,{store:T.store}).api.S();
+  ok('إعادة الفتح بعد المسح لا ترجع الأسماء والأوقات',!reopened.players[0].name&&!reopened.players[0].p[0].s);
+  T.api.S().players[0].name='جديد';T.input({dataset:{f:'name',p:S.players[0].id},value:'جديد'});
+  ok('الحفظ التلقائي لسه شغال بعد المسح',load(12,0,{store:T.store}).api.S().players[0].name==='جديد');
+}
+{
+  const T=load(12,0,{confirm:false}),S=T.api.S();S.players[0].name='موجود';
+  const before=JSON.stringify(S);T.click('new');
+  ok('إلغاء تأكيد المسح لا يغير أي بيانات',JSON.stringify(S)===before);
+  S.hist=[{id:'h'}];T.click('delh',{h:'h'});
+  ok('إلغاء حذف جلسة محفوظة يحافظ عليها',S.hist.length===1);
+}
+{
+  const T=load(12,0),S=T.api.S();S.hist=[{id:'h'}];T.click('delh',{h:'h'});
+  ok('تأكيد حذف جلسة محفوظة يحذفها',S.hist.length===0&&JSON.parse(T.store.ps_hist).length===0);
 }
 console.log(`\n${pass} نجح، ${fail} فشل`);process.exit(fail?1:0);

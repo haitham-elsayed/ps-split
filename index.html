@@ -86,6 +86,7 @@ button{cursor:pointer}
 .add:hover{border-color:var(--blue);color:var(--blue)}
 .go{display:block;width:100%;border:0;border-radius:999px;background:var(--blue);font-weight:900;font-size:20px;padding:13px;margin-top:14px;color:var(--on);box-shadow:0 5px 0 var(--blued),0 0 18px var(--gl);transition:transform .08s,box-shadow .08s}
 .go:active{transform:translateY(4px);box-shadow:0 1px 0 var(--blued),0 0 18px var(--gl)}
+.danger{color:var(--bad);border:1px solid var(--line)}
 .ghost{width:100%;background:var(--surf2);border:0;border-radius:999px;padding:11px;font-weight:700;margin-top:10px}
 .err{background:var(--surf2);background:color-mix(in srgb,var(--bad) 14%,transparent);color:var(--bad);border-radius:16px;padding:12px 14px;margin-top:12px;font-weight:700}
 .slip{background:var(--surf2);color:var(--ink);padding:20px 18px 34px;margin-top:26px;border-radius:10px 10px 0 0;font-feature-settings:"tnum";-webkit-mask:radial-gradient(circle 8px at 50% 100%,#0000 98%,#000) 0 100%/18px 100% repeat-x;mask:radial-gradient(circle 8px at 50% 100%,#0000 98%,#000) 0 100%/18px 100% repeat-x}
@@ -154,6 +155,8 @@ details{margin-top:14px;font-size:15px;text-align:start}summary{cursor:pointer;f
   <p class="hint">دوس على أيقونة الساعة جنب الوقت عشان تكتب الوقت الحالي، أو دوس على الوقت نفسه عشان تختاره. اكتب وقت خروج كل واحد يمشي. اللي نهايته فاضية بيتحسب لحد أحدث خروج مكتوب، ولو محدش مشي لحد دلوقتي. والحساب يفضل «مؤقت» لحد ما كل النهايات تتكتب.</p>
   <div id="pl"></div>
   <button class="add" data-a="addp">+ إضافة لاعب</button>
+  <button class="ghost danger" data-a="new">حذف الجلسة بالكامل</button>
+  <p class="hint" style="margin-top:8px">يمسح أسماء وأوقات الجلسة الحالية بس. الأسعار والجلسات المحفوظة بتفضل زي ما هي.</p>
   <button class="go" data-a="calc">احسب الحساب</button>
   <div id="msg"></div>
   <div id="out"></div>
@@ -196,10 +199,10 @@ const h=store.get('ps_hist');S.hist=Array.isArray(h)?h.filter(okHist):[];
 const d=store.get('ps_draft');if(d&&Array.isArray(d.players)&&d.players.length&&d.players.every(okPl)){S.players=d.players;if(okId(d.sid))S.sid=d.sid;S._calc=!!d.calc;if(typeof d.fz==='string'&&d.fz&&okT(d.fz))S._fz=d.fz}}
 
 /* ---------- محرك الحساب (نفس منطق calculator.ts) ---------- */
-const nk=n=>n.trim().toLowerCase().replace(/[\u064B-\u065F\u0640]/g,'').replace(/[أإآٱ]/g,'ا').replace(/ة/g,'ه').replace(/ى/g,'ي').replace(/\s+/g,' ');
+// هوية اللاعب هي البطاقة، مش الاسم: ممكن اتنين يبقوا بنفس الاسم.
 /* open = فيه حد لسه قاعد من المساء: أي بداية صباحية بعد منتصف الليل تتحسب من تاني يوم */
 function adj(ss,open=ss.some(x=>x.live&&tm(x.startTime)>=720)){
-  const d=ss.map(x=>({...x,k:nk(x.name),s:tm(x.startTime),e:tm(x.endTime)}));
+  const d=ss.map(x=>({...x,k:x.playerId,s:tm(x.startTime),e:tm(x.endTime)}));
   let mx=0;d.forEach(x=>{if(x.e<x.s)mx=Math.max(mx,x.e+1440)});
   d.forEach(x=>{if(x.e<x.s)x.e+=1440});
   /* بداية الصبح اللي بتيجي بعد نهاية فترة عابرة لمنتصف الليل (أو لسه شغال من المساء) تتزحزح يوم، وبتمدّ نقطة النهاية للي بعدها */
@@ -243,7 +246,7 @@ function prepare(ss){
     return{...x,endTime:cp,live:true}})};
 }
 function compute(){
-  const ss=S.players.flatMap(p=>p.p.map(q=>({name:p.name.trim().replace(/\s+/g,' '),startTime:q.s,endTime:q.e,sessionType:q.t})));
+  const ss=S.players.flatMap(p=>p.p.map(q=>({playerId:p.id,name:p.name.trim().replace(/\s+/g,' '),startTime:q.s,endTime:q.e,sessionType:q.t})));
   ss.forEach(x=>{
     if(!x.name)throw Error('اكتب اسم كل لاعب.');
     if(!x.startTime)throw Error(`${x.name}: اكتب وقت البداية.`);
@@ -252,7 +255,7 @@ function compute(){
   if(ss.some(x=>x.sessionType==='multi')&&!(S.mr>0))throw Error('اكتب سعر ساعة المالتي.');
   const {cp,list}=prepare(ss),bad=conflicts(list);if(bad)throw Error(bad);
   const per=periods(list,S.sr,S.mr),map=new Map();
-  list.forEach(x=>{const k=nk(x.name);if(!map.has(k))map.set(k,{name:x.name,c:0,sc:0,mc:0,h:0})});
+  list.forEach(x=>{const k=x.playerId;if(!map.has(k))map.set(k,{id:k,name:x.name,c:0,sc:0,mc:0,h:0})});
   per.forEach(p=>p.sh.forEach(x=>{const r=map.get(x.k);r.c+=x.c;r.h+=p.h;if(x.t==='multi')r.mc+=x.c;else r.sc+=x.c}));
   const raw=per.reduce((a,p)=>a+p.tc,0),rows=[...map.values()].map(r=>S.rd?{...r,c:Math.round(r.c/100)*100}:r);
   return{rows,per,cp,live:list.some(x=>x.live),total:rows.reduce((a,r)=>a+r.c,0),raw,rd:S.rd,hours:per.reduce((a,p)=>a+p.h,0),at:Date.now()};
@@ -287,10 +290,10 @@ function openTime(p,q,f,at){
   $('#ov').hidden=false;$('#kbt').hidden=true;$('#kbb').setAttribute('aria-expanded','false');setWheels();$('#wh').focus({preventScroll:true});
 }
 $('#kbt').addEventListener('change',e=>{const v=e.target.value;if(!/^\d\d:\d\d$/.test(v))return;const[h,m]=v.split(':').map(Number);if(!P.ml.includes(m)){P.ml=[...P.ml,m].sort((x,y)=>x-y);mk('#wm',P.ml.map(x=>String(x).padStart(2,'0')))}Object.assign(P,{h:h%12||12,m,ap:h>=12?1:0});setWheels()});
-const closeTime=()=>{$('#ov').hidden=true;try{P.op&&P.op.focus()}catch{}};
+const closeTime=()=>{$('#ov').hidden=true;const op=$(`[data-a="time"][data-p="${P.p}"][data-q="${P.q}"][data-f="${P.f}"]`);try{(op||P.op)?.focus({preventScroll:true})}catch{}};
 ['#wh','#wm','#wa'].forEach(id=>$(id).addEventListener('keydown',e=>{if(e.key==='ArrowDown'||e.key==='ArrowUp'){e.preventDefault();$(id).scrollBy({top:e.key==='ArrowDown'?44:-44})}}));
 $('#ov').addEventListener('keydown',e=>{if(e.key!=='Tab')return;const l=[...$('#ov').querySelectorAll('button,[tabindex="0"],input:not([hidden])')],i=l.indexOf(document.activeElement);e.preventDefault();l[(i+(e.shiftKey?-1:1)+l.length)%l.length].focus()});
-function setTime(val){const q=S.players.find(x=>x.id===P.p).p.find(x=>x.id===P.q);q[P.f]=val;closeTime();drawForm()}
+function setTime(val){const q=S.players.find(x=>x.id===P.p).p.find(x=>x.id===P.q);q[P.f]=val;drawForm();closeTime()}
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeTime()});
 $('#ov').addEventListener('click',e=>{if(e.target.id==='ov')closeTime()});
 /* الحساب المخزّن بيبقى قديم لما الوقت يمشي: نعيد الحساب قبل النسخ/المشاركة/الحفظ */
@@ -357,7 +360,7 @@ document.addEventListener('click',async e=>{
   else if(a==='th'){applyTheme(b.dataset.th);store.set('ps_theme',b.dataset.th);markTh()}
   else if(a==='tclear')setTime('');
   else if(a==='type'){const q=p.p.find(x=>x.id===b.dataset.q);q.t=b.dataset.t;drawForm()}
-  else if(a==='new')fresh();
+  else if(a==='new'){if(confirm('حذف الجلسة الحالية بالكامل؟ هتتمسح كل الأسماء وأوقات الدخول والخروج والحساب الحالي. الأسعار والجلسات المحفوظة مش هتتمسح.')){fresh();$('[data-f=name]').focus()}}
   else if(a==='load'){const h=S.hist.find(x=>x.id===b.dataset.h);if(!h)return;S.sr=h.sr;S.mr=h.mr;S.rd=!!h.rd;S.sid=h.id;saveRates();S.players=JSON.parse(JSON.stringify(h.players));msg('');drawForm();S.fz=(h.live&&h.cp)?h.cp:null;try{S.res=compute();drawOut();persist();updateLive()}catch{S.res=null;drawOut()}scrollTo({top:0,behavior:sm()})}
 });
 const flash=(b,x)=>{const o=b.textContent;b.textContent=x;setTimeout(()=>b.textContent=o,1500)};
@@ -399,7 +402,7 @@ function updateLive(){
   $('#ln').textContent=r?(r.live?'مؤقت · محسوب لحد '+disp(r.cp):'نهائي · كل النهايات مكتوبة'):err;
   if(!r)return;
   S.players.forEach(p=>{
-    const row=r.rows.find(x=>nk(x.name)===nk(p.name)),el=document.querySelector(`[data-lv="${p.id}"]`),open=p.p.find(q=>q.s&&!q.e);
+    const row=r.rows.find(x=>x.id===p.id),el=document.querySelector(`[data-lv="${p.id}"]`),open=p.p.find(q=>q.s&&!q.e);
     if(!el||!row)return;
     let t='';
     if(open){const m=((tm(r.cp)-tm(open.s))%1440+1440)%1440;t=`قاعد من ${disp(open.s)} · ${m>=60?Math.floor(m/60)+'س ':''}${m%60}د · `}
